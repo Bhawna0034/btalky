@@ -25,12 +25,14 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
             setOnlineUsers([]);
             return;
         }
-        const socketInstance = io("http://localhost:8080", {
+        const SOCKET_URL = process.env.NEXT_PUBLIC_SOCKET_URL!
+        const socketInstance = io(SOCKET_URL, {
             query: {
                 userId: user._id
             },
             withCredentials: true,
-        })
+            transports: ["websocket", "polling"],
+        });
         setSocket(socketInstance);
         socketInstance.on("connect", () => {
             console.log("Socket connected:", socketInstance.id);

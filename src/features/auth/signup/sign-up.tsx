@@ -11,7 +11,6 @@ import { useRouter } from "next/navigation";
 
 export default function SignUp() {
   const router = useRouter();
-  const { user } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState<SignupProps>({
     fullName: "",
@@ -25,11 +24,7 @@ export default function SignUp() {
     password: "",
   });
   const { trigger, isMutating } = useSignupMutation();
-  useEffect(() => {
-    if (user) {
-      router.replace("/");
-    }
-  }, [user, router]);
+
   const validateForm = () => {
     const newErrors = {
       fullName: "",
