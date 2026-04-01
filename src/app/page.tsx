@@ -24,5 +24,6 @@ export default function Home() {
     );
   }
 
+  if (!user) return null;
   return <Chats />;
 }

@@ -18,19 +18,20 @@ export default function Login() {
     password: "",
   });
 
-  const { user } = useAuth();
+  const { user, isLoading } = useAuth();
   const { trigger, isMutating } = useLoginMutation();
   useEffect(() => {
-    if (user) {
+    if (!isLoading && user) {
       router.replace("/");
     }
-  }, [user, router]);
+  }, [user, router, isLoading]);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       await trigger(formData);
-      toast.success("Successfully Logged in");
       await mutate("/auth/check");
+      toast.success("Successfully Logged in");
+
       router.replace("/");
       setFormData({
         email: "",
