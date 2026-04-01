@@ -1,6 +1,9 @@
+import { Toaster } from "@/src/features/components/ui/sonner";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import HeaderWrapper from "../features/components/chat/header-wrapper";
 import "./globals.css";
+import { SocketProvider } from "../hooks/use-socket";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +30,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <HeaderWrapper />
+        <SocketProvider>
+          {children}
+        </SocketProvider>
+        <Toaster position="bottom-right" richColors />
       </body>
     </html>
   );
